@@ -7,7 +7,12 @@ namespace TcpTest {
             TcpClient client = new("127.0.0.1", 4948);
             NetworkStream stream = client.GetStream();
 
-            string jsonMessage = "{\"Qualifier\":\"showWinningNumber\",\"Data\":{\"WinningNumber\":24}}";
+            Random random = new Random();
+            int winningNumber = random.Next(0, 37);
+
+            string jsonMessage = $"{{\"Qualifier\":\"showWinningNumber\",\"Data\":{{\"WinningNumber\":{winningNumber}}}}}";
+            Console.WriteLine(jsonMessage);
+
             byte[] buffer = Encoding.ASCII.GetBytes(jsonMessage);
             stream.Write(buffer, 0, buffer.Length);
 
